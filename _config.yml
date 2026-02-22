@@ -1,10 +1,11 @@
 title: Markdown Articles Site
 description: A GitHub Pages site generated from markdown_articles.
 repository: bulky/github_pages
-author_name: Your Name
+author_name: Sunil Pinnamaneni
 author_bio: |
-  Welcome to my writing space. I publish notes and long-form articles here,
-  all written in Markdown and rendered as static pages.
+  Welcome to my writing space. I publish notes and long-form articles here.
+note_to_reader: |
+  If arxiv articles exist, a link is provided to those articles. These blogs are intended to be less formal discussions.
 
 # Ensure markdown files in markdown_articles/ are rendered as article pages.
 defaults:

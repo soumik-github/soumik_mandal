@@ -52,7 +52,7 @@ layout: null
         <h1>Welcome</h1>
         <p><strong>{{ site.author_name }}</strong></p>
         <p>{{ site.author_bio }}</p>
-        <p>This site publishes Markdown articles as static HTML pages.</p>
+        <p>{{ site.note_to_reader }}</p>
 
         {% assign articles = site.pages | where_exp: "p", "p.path contains 'markdown_articles/'" | sort: "date" | reverse %}
         <div class="latest">
