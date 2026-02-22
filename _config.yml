@@ -1,14 +1,16 @@
 title: Markdown Articles Site
 description: A GitHub Pages site generated from markdown_articles.
+repository: bulky/github_pages
+author_name: Your Name
+author_bio: |
+  Welcome to my writing space. I publish notes and long-form articles here,
+  all written in Markdown and rendered as static pages.
 
-collections:
-  markdown_articles:
-    output: true
-    permalink: /html_articles/:name.html
-
+# Ensure markdown files in markdown_articles/ are rendered as article pages.
 defaults:
   - scope:
-      path: ""
-      type: markdown_articles
+      path: "markdown_articles"
+      type: pages
     values:
       layout: article
+      permalink: /html_articles/:basename.html

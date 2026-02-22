@@ -1,3 +1,8 @@
+---
+title: Mathematical Theorem Proving LLMs
+date: 2026-02-22
+---
+
 # Mathematical Theorem Proving LLMs
 
 This articles is about Goedel Prover II. We'll show the following:
@@ -13,4 +18,3 @@ In the past, inequalities like the following were hard to prove rigorously with 
 $\alpha = ||u||_p$
 
 That's it.
-

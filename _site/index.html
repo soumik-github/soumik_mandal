@@ -1,12 +1,9 @@
----
-layout: null
----
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ site.title }}</title>
+    <title>Markdown Articles Site</title>
     <style>
       :root {
         --ink: #1f2937;
@@ -50,22 +47,22 @@ layout: null
     <main>
       <section class="hero">
         <h1>Welcome</h1>
-        <p><strong>{{ site.author_name }}</strong></p>
-        <p>{{ site.author_bio }}</p>
+        <p><strong></strong></p>
+        <p></p>
         <p>This site publishes Markdown articles as static HTML pages.</p>
 
-        {% assign articles = site.pages | where_exp: "p", "p.path contains 'markdown_articles/'" | sort: "date" | reverse %}
+        
         <div class="latest">
           <h2>All Articles</h2>
-          {% if articles.size > 0 %}
+          
           <ul>
-            {% for article in articles %}
-            <li><a href="{{ article.url | relative_url }}">{{ article.title | default: article.name }}</a></li>
-            {% endfor %}
+            
+            <li><a href="/markdown_articles/welcome.html">Welcome Article</a></li>
+            
+            <li><a href="/markdown_articles/MathematicalTheoremProvingLLMs.html">Mathematical Theorem Proving LLMs</a></li>
+            
           </ul>
-          {% else %}
-          <p>No articles found yet. Add files to <code>markdown_articles/</code>.</p>
-          {% endif %}
+          
         </div>
       </section>
     </main>

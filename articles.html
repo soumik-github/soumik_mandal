@@ -1,0 +1,51 @@
+---
+layout: null
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All Articles | {{ site.title }}</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.6;
+        color: #1f2937;
+        background: #f8fafc;
+      }
+      main {
+        max-width: 900px;
+        margin: 2.5rem auto;
+        background: #ffffff;
+        border: 1px solid #dbe4ea;
+        border-radius: 12px;
+        padding: 2rem;
+      }
+      h1 { margin-top: 0; }
+      ul { padding-left: 1.2rem; }
+      li { margin: 0.6rem 0; }
+      a { color: #0c4a6e; }
+      .back { margin-top: 1.4rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>All Articles</h1>
+      {% assign articles = site.pages | where_exp: "p", "p.path contains 'markdown_articles/'" | sort: "date" | reverse %}
+      {% if articles.size > 0 %}
+      <ul>
+        {% for article in articles %}
+        <li>
+          <a href="{{ article.url | relative_url }}">{{ article.title | default: article.name }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No markdown files found in <code>markdown_articles/</code>.</p>
+      {% endif %}
+      <p class="back"><a href="{{ '/' | relative_url }}">Back to welcome page</a></p>
+    </main>
+  </body>
+</html>
