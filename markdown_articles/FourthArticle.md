@@ -2,6 +2,6 @@
 
 This is my next article
 
-$\alpha=||w||_p$
+$$ \alpha=||w||_p $$
 
 Done.
