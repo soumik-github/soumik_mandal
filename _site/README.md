@@ -48,6 +48,19 @@ Write markdown content here.
 2. Commit and push.
 3. Visit `/html_articles/my-topic.html` or the home page to access the link.
 
+## LaTeX math in articles
+
+Article pages load MathJax, so LaTeX in markdown is rendered in the browser.
+
+- Inline math: `$E = mc^2$`
+- Display math:
+
+```tex
+$$
+\int_0^1 x^2 \, dx = \frac{1}{3}
+$$
+```
+
 ## RVM and gems setup (local)
 
 1. Visit the RVM site: `https://rvm.io/`.
