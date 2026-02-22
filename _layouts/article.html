@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <style>
+      :root { color-scheme: light; }
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.65;
+        color: #1f2937;
+        background: #f9fafb;
+      }
+      main {
+        max-width: 760px;
+        margin: 2.5rem auto;
+        background: #fff;
+        padding: 2rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+      }
+      a { color: #0f766e; }
+      nav { margin-bottom: 1.5rem; }
+      pre {
+        overflow-x: auto;
+        padding: 0.75rem;
+        background: #f3f4f6;
+      }
+      code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="{{ '/' | relative_url }}">&larr; Back to index</a></nav>
+      <article>
+        <h1>{{ page.title }}</h1>
+        {{ content }}
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+title: Markdown Articles Site
+description: A GitHub Pages site generated from markdown_articles.
+
+collections:
+  markdown_articles:
+    output: true
+    permalink: /html_articles/:name.html
+
+defaults:
+  - scope:
+      path: ""
+      type: markdown_articles
+    values:
+      layout: article
