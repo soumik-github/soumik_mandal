@@ -50,13 +50,13 @@ Write markdown content here.
 
 ### Images in articles
 
-Store article images under `markdown_articles/images/` and reference them with a relative path, for example:
+Store article images under a public folder like `images/` (repo root) and reference them with `relative_url`, for example:
 
 ```md
-![TransformerImage](./images/TransformerImage.png)
+![TransformerImage]({{ '/images/TransformerImage.png' | relative_url }})
 ```
 
-The article layout resolves relative image paths from the markdown file location so they render correctly under `/html_articles/...`.
+Avoid absolute filesystem paths like `/home/...` in markdown image URLs. Use site-relative paths as shown above so images work in local Jekyll and on GitHub Pages.
 
 ## LaTeX math in articles
 

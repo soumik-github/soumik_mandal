@@ -51,37 +51,15 @@
         <h1>Fourth Article</h1>
         <h1 id="fourth-article">Fourth Article</h1>
 
-<p>This is my next article</p>
+<p>This is my next article.</p>
 
-\[\alpha=||w||_p\]
+\[\alpha = ||w||_p\]
 
 <p>Done.</p>
 
-<p><img src="./images/TransformerImage.png" alt="TransformerImage" /></p>
+<p><img src="/images/TransformerImage.png" alt="TransformerImage" /></p>
 
       </article>
     </main>
-    <script>
-      // Make relative image paths resolve from the source markdown directory.
-      (function () {
-        var siteRoot = "/";
-        var pagePath = "markdown_articles/FourthArticle.md";
-        var sourceDir = pagePath.split("/").slice(0, -1).join("/");
-        var article = document.querySelector("article");
-        if (!article || !sourceDir) return;
-
-        var images = article.querySelectorAll("img[src]");
-        images.forEach(function (img) {
-          var rawSrc = (img.getAttribute("src") || "").trim();
-          if (!rawSrc) return;
-          if (/^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(rawSrc)) return;
-
-          var normalized = rawSrc.replace(/^\.\//, "");
-          var base = new URL(sourceDir + "/", window.location.origin + siteRoot);
-          var resolved = new URL(normalized, base);
-          img.setAttribute("src", resolved.pathname);
-        });
-      })();
-    </script>
   </body>
 </html>

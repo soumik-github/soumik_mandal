@@ -69,27 +69,5 @@ $\alpha = ||u||_p$</p>
 
       </article>
     </main>
-    <script>
-      // Make relative image paths resolve from the source markdown directory.
-      (function () {
-        var siteRoot = "/";
-        var pagePath = "markdown_articles/MathematicalTheoremProvingLLMs.md";
-        var sourceDir = pagePath.split("/").slice(0, -1).join("/");
-        var article = document.querySelector("article");
-        if (!article || !sourceDir) return;
-
-        var images = article.querySelectorAll("img[src]");
-        images.forEach(function (img) {
-          var rawSrc = (img.getAttribute("src") || "").trim();
-          if (!rawSrc) return;
-          if (/^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(rawSrc)) return;
-
-          var normalized = rawSrc.replace(/^\.\//, "");
-          var base = new URL(sourceDir + "/", window.location.origin + siteRoot);
-          var resolved = new URL(normalized, base);
-          img.setAttribute("src", resolved.pathname);
-        });
-      })();
-    </script>
   </body>
 </html>
