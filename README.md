@@ -48,6 +48,16 @@ Write markdown content here.
 2. Commit and push.
 3. Visit `/html_articles/my-topic.html` or the home page to access the link.
 
+### Images in articles
+
+Store article images under a public folder like `images/` (repo root) and reference them with `relative_url`, for example:
+
+```md
+![TransformerImage]({{ '/images/TransformerImage.png' | relative_url }})
+```
+
+Avoid absolute filesystem paths like `/home/...` in markdown image URLs. Use site-relative paths as shown above so images work in local Jekyll and on GitHub Pages.
+
 ## LaTeX math in articles
 
 Article pages load MathJax, so LaTeX in markdown is rendered in the browser.

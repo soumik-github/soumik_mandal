@@ -48,6 +48,16 @@ Write markdown content here.
 2. Commit and push.
 3. Visit `/html_articles/my-topic.html` or the home page to access the link.
 
+### Images in articles
+
+Store article images under `markdown_articles/images/` and reference them with a relative path, for example:
+
+```md
+![TransformerImage](./images/TransformerImage.png)
+```
+
+The article layout resolves relative image paths from the markdown file location so they render correctly under `/html_articles/...`.
+
 ## LaTeX math in articles
 
 Article pages load MathJax, so LaTeX in markdown is rendered in the browser.
