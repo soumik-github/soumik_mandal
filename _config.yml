@@ -1,6 +1,8 @@
 title: Markdown Articles Site
 description: A GitHub Pages site generated from markdown_articles.
 repository: bulky/github_pages
+exclude:
+  - README.md
 author_name: Sunil Pinnamaneni
 author_bio: |
   Welcome to my writing space. I publish notes and long-form articles here.
