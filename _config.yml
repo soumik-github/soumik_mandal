@@ -3,11 +3,13 @@ description: A GitHub Pages site generated from markdown_articles.
 repository: bulky/github_pages
 exclude:
   - README.md
-author_name: Sunil Pinnamaneni
+author_name: Soumik Mandal
 author_bio: |
-  Welcome to my writing space. I publish notes and long-form articles here.
+  Welcome to my research space. I publish research articles in LLM, FM, NLP, Vision, Semantic Parsing, general AI/ML here.
+  I am interested in perception, understanding, reasoning, action, reward, adn leaarning of large scale systems.
 note_to_reader: |
-  If arxiv articles exist, a link is provided to those articles. These blogs are intended to be less formal discussions.
+  If arxiv articles exist, a link is provided to those articles. These blogs are intended to be less formal discussions, and are solely my view points. For any entity other than me using it for commercial purpose : this materials solely belongs to me and only me. For each unicode character that is crawled from my website, you will be charged 10000 USD per unicode cahracter. If you are taking photo of webpage, then this rates increases to 100000 USD. No exception. My terms and conditions overrides everything. 
+  You will be taken to the court if I find this. 
 
 # Ensure markdown files in markdown_articles/ are rendered as article pages.
 defaults:
