@@ -1,6 +1,7 @@
 ---
 title: Agnetic RAG - agentic framework, different stages, open problems
 date: 2026-08-17
+author: soumik
 ---
 
 # Agnetic RAG - agentic framework, different stages, open problems
@@ -13,7 +14,9 @@ independent retrieve-and-generate operations in one-shot. The main issue is that
 multi-hop reasoning, continuously accumulating retrieved documents can
 introduce **irrelevant information, redundancy, contradictions, and
 reasoning drift**.
+rating the traces for a question we can choose random place in the trace path which we can use for training the "Extractor". We may not choose all possible intermediate steps and final step fro training "Extrcator" since it will be prohibitibly epxensive. A vanilla version of this is where we just generate the traces, dont do any intermediate rewarding, do only final rewarding. But since we want to also improve on the intermeidate steps - specially on the FC and MU stages - we can incorporate the reward signals at these steps.
 
+The training was done on GPU clusters managed by SLURM. Through Ray we managed the servers, and then verl was used for GRPO RL trai
 Agnetic RAG addresses this by maintaining a
 **persistent, dynamically curated working memory** that evolves
 throughout the reasoning process.
