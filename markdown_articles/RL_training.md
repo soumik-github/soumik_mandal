@@ -50,7 +50,7 @@ The overall flow diagram of this looks like this :
 flowchart LR
     Q["Question"]:::question --> A["Subquestion Generation (QG)"]:::gen --> B["Retrieve (KR)"]:::retrieve --> C["Consolidate (FC)"]:::consolidate --> D["Generate (RG)"]:::gen --> E["Update Memory (MU)"]:::memory
     E -.->|"next iteration"| A
-    A -->SQG["vLLM/sglang server"]:::sqg
+    A <--> SQG["vLLM/sglang server"]:::sqg
 
     classDef question fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,stroke-width:1px;
     classDef gen fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:1px;
