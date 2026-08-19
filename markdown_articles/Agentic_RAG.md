@@ -153,15 +153,19 @@ Lets' formally define the full flow :
 $$
 \boxed{q_j = QG(x, prompt, M_{j-1})} \qquad (3)
 $$
+
 $$
 \boxed{D_j = KR(K, q_j)} \qquad (4)
 $$
+
 $$
 \boxed{I_j = FC(q_j, D_j, M_{j-1})} \qquad (5)
 $$
+
 $$
 \boxed{r_j = RG(q_j, I_j)} \qquad (6)
 $$
+
 $$
 \boxed{M_j = MU(x, M_{j-1}, I_j, prompt, (q_j,r_j ) )} \qquad (7)
 $$
@@ -170,17 +174,20 @@ $$
 $$
 T = \{S_0, a_0, S_1, a_1, \ldots, a_{n-1}, S_n\}
 $$
+
 Here T is set of steps generated in the full trace of steps.
 The question is x.
 
 $$
 \boxed{S_j = (q_j, r_j, M_j)}
 $$
+
 - $q_j$: the **current sub-question** being solved.
 - $r_j$: the **intermediate response** generated for that sub-question.
 - $M_j$: the **working memory** after step $i$.
 
-where 
+where
+
 $$
 S_0 = (x, \emptyset, \emptyset)
 $$
