@@ -131,7 +131,7 @@ $$
 
 <pre class="mermaid">
 flowchart LR
-    Q["Question"]:::question --> A["Subquestion Generation"]:::gen --> B["Retrieve"]:::retrieve --> C["Consolidate"]:::consolidate --> D["Generate"]:::gen --> E["Update Memory"]:::memory
+    Q["Question"]:::question --> A["Subquestion Generation (QG)"]:::gen --> B["Retrieve (KR)"]:::retrieve --> C["Consolidate (FC)"]:::consolidate --> D["Generate (RG)"]:::gen --> E["Update Memory (MU)"]:::memory
     E -.->|"next iteration"| A
 
     classDef question fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,stroke-width:1px;
