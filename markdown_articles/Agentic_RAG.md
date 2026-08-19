@@ -129,6 +129,17 @@ $$
 \text{Subquestion-generation} \rightarrow \text{Retrieve} \rightarrow \text{Consolidate} \rightarrow \text{Generate} \rightarrow \text{Update-Memory}
 $$
 
+<pre class="mermaid">
+flowchart LR
+    A["Subquestion Generation"]:::gen --> B["Retrieve"]:::retrieve --> C["Consolidate"]:::consolidate --> D["Generate"]:::gen --> E["Update Memory"]:::memory
+
+    classDef gen fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:1px;
+    classDef retrieve fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:1px;
+    classDef consolidate fill:#fef9c3,stroke:#ca8a04,color:#713f12,stroke-width:1px;
+    classDef memory fill:#fce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
+</pre>
+
+
 The updated memory $M_i$ is then available to the next reasoning step.
 
 - **Subquestion-generation:** generates $q_j$ give historical context and orginal question. This is sigle hop in a complex multi-hop question answering.
