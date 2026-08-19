@@ -126,22 +126,22 @@ The new memory therefore depends on:
 Here we describe the stages of implementation using the modules from above. There are total 5 stages. Here is the flow 
 
 $$
-\text{Subquestion-generation} \rightarrow \text{Retrieve} \rightarrow \text{Consolidate} \rightarrow \text{Generate} \rightarrow \text{Update-Memory}
+\text{question} \rightarrow \text{Subquestion-generation} \rightarrow \text{Retrieve} \rightarrow \text{Consolidate} \rightarrow \text{Generate} \rightarrow \text{Update-Memory}
 $$
 
 <pre class="mermaid">
 flowchart LR
-    A["Subquestion Generation"]:::gen --> B["Retrieve"]:::retrieve --> C["Consolidate"]:::consolidate --> D["Generate"]:::gen --> E["Update Memory"]:::memory
+    Q["Question"]:::question --> A["Subquestion Generation"]:::gen --> B["Retrieve"]:::retrieve --> C["Consolidate"]:::consolidate --> D["Generate"]:::gen --> E["Update Memory"]:::memory
+    E -.->|"next iteration"| A
 
+    classDef question fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,stroke-width:1px;
     classDef gen fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:1px;
     classDef retrieve fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:1px;
     classDef consolidate fill:#fef9c3,stroke:#ca8a04,color:#713f12,stroke-width:1px;
     classDef memory fill:#fce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
 </pre>
 
-
-The updated memory $M_i$ is then available to the next reasoning step.
-
+Each stage in braod sense is descrived below :
 - **Subquestion-generation:** generates $q_j$ give historical context and orginal question. This is sigle hop in a complex multi-hop question answering.
 - **Retrieve:** Retrives appropriate context from IS (information-sources) given the present query to answer.
 - **Consolidate:** remove duplicate or unnecessary information and give feedback on the context from retriever stage.
