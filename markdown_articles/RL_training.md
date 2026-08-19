@@ -51,13 +51,21 @@ flowchart LR
     Q["Question"]:::question --> A["Subquestion Generation (QG)"]:::gen --> B["Retrieve (KR)"]:::retrieve --> C["Consolidate (FC)"]:::consolidate --> D["Generate (RG)"]:::gen --> E["Update Memory (MU)"]:::memory
     E -.->|"next iteration"| A
     A <--> SQG["vLLM/sglang server"]:::sqg
+    B <--> SKR["retriver hosting server"]:::skr
+    C --> VAFC["verl agent"]:::vafc
+    D <--> SRG["vLLM/sglang server"]:::srg
+    E --> VAMU["verl agent"]:::vamu
 
     classDef question fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,stroke-width:1px;
     classDef gen fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:1px;
     classDef retrieve fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:1px;
     classDef consolidate fill:#fef9c3,stroke:#ca8a04,color:#713f12,stroke-width:1px;
     classDef memory fill:#fce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
-    classDef sqg fill:#fce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
+    classDef sqg fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
+    classDef skr fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
+    classDef vafc fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
+    classDef srg fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
+    classDef vamu fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
 </pre>
 
 
