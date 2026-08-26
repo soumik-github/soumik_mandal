@@ -287,10 +287,31 @@ if __name__ == "__main__":
 
 Mapping of rank/gpus: 
 
-| Producer rank (node_4) | GPU | Sends to collector rank |
-|---|---|---|
-| 4, 5 | 0, 1 | 0 |
-| 6, 7 | 2, 3 | 1 |
-| 8, 9 | 4, 5 | 2 |
-| 10, 11 | 6, 7 | 3 |
+<table style="border-collapse: collapse; width: 100%;">
+<tr>
+<th style="border: 1px solid; padding: 6px;">Producer rank (node_4)</th>
+<th style="border: 1px solid; padding: 6px;">GPU</th>
+<th style="border: 1px solid; padding: 6px;">Sends to collector rank</th>
+</tr>
+<tr>
+<td style="border: 1px solid; padding: 6px;">4, 5</td>
+<td style="border: 1px solid; padding: 6px;">0, 1</td>
+<td style="border: 1px solid; padding: 6px;">0</td>
+</tr>
+<tr>
+<td style="border: 1px solid; padding: 6px;">6, 7</td>
+<td style="border: 1px solid; padding: 6px;">2, 3</td>
+<td style="border: 1px solid; padding: 6px;">1</td>
+</tr>
+<tr>
+<td style="border: 1px solid; padding: 6px;">8, 9</td>
+<td style="border: 1px solid; padding: 6px;">4, 5</td>
+<td style="border: 1px solid; padding: 6px;">2</td>
+</tr>
+<tr>
+<td style="border: 1px solid; padding: 6px;">10, 11</td>
+<td style="border: 1px solid; padding: 6px;">6, 7</td>
+<td style="border: 1px solid; padding: 6px;">3</td>
+</tr>
+</table>
 
