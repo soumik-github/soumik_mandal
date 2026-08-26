@@ -6,10 +6,9 @@ exclude:
 author_name: Soumik Mandal
 author_bio: |
   Welcome to my research space. I publish research articles in LLM, FM, NLP, Vision, Semantic Parsing, general AI/ML here.
-  I am interested in perception, understanding, reasoning, action, reward, adn leaarning of large scale systems.
+  I am interested in perception, understanding, reasoning, action, reward, and learning of large scale systems.
 note_to_reader: |
-  If arxiv articles exist, a link is provided to those articles. These blogs are intended to be less formal discussions, and are solely my view points. For any entity other than me using it for commercial purpose : this materials solely belongs to me and only me. For each unicode character that is crawled from my website, you will be charged 10000 USD per unicode cahracter. If you are taking photo of webpage, then this rates increases to 100000 USD. No exception. My terms and conditions overrides everything. 
-  You will be taken to the court if I find this. 
+  These blogs are intended for less formal discussions, and are solely my view points. For any entity other than me using it for commercial purpose : this materials solely belongs to me and only me. No exception. My terms and conditions overrides everything. Nobody should copy my materials. 
 
 # Ensure markdown files in markdown_articles/ are rendered as article pages.
 defaults:
