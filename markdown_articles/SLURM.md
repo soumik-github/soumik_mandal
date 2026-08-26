@@ -188,3 +188,109 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+
+
+
+
+### Problem 2: Matrix multiplication (modified)
+
+Let's say there are 3 nodes with 8 GPUs each - `node_3`/`node_4`/`node_5`. From `node_3` we want to access `node_4` and run a Python script that generates two random matrices ($7\times 9$ and $9\times 7$), multiplies them to get a $7\times 7$ matrix, and sends the result back to `node_3`. Since `node_4` has 8 GPUs, we get 8 such matrices back on `node_3`. Once we have these 8 matrices on `node_3`, we multiply them together in parallel in 4 gpus of the `node_3` on a single GPU there, and print the final answer.
+
+`matmul.sbatch`:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=matmul_demo
+#SBATCH --output=matmul_%j.log
+#SBATCH --time=00:10:00
+
+# ---- Component 0: node_3 = 4 collector ranks (1 GPU each) ----
+#SBATCH --nodelist=node_3
+#SBATCH --nodes=1
+#SBATCH --ntasks=4
+#SBATCH --ntasks-per-node=4
+#SBATCH --gres=gpu:4
+#SBATCH --cpus-per-task=2
+
+#SBATCH hetjob
+
+# ---- Component 1: node_4 = 8 producer ranks (1 GPU each) ----
+#SBATCH --nodelist=node_4
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=8
+#SBATCH --gres=gpu:8
+#SBATCH --cpus-per-task=2
+
+source ~/venv/bin/activate
+export MASTER_PORT=29500
+
+srun --het-group=0,1 python matmul_worker.py
+
+```
+
+`matmul_worker.py`:
+
+```python
+import os
+import torch
+import torch.distributed as dist
+
+def main():
+    rank = int(os.environ["SLURM_PROCID"])        # 0..11
+    world_size = int(os.environ["SLURM_NTASKS"])   # 4 + 8 = 12
+
+    os.environ.setdefault("MASTER_ADDR", "node_3")
+    os.environ.setdefault("MASTER_PORT", "29500")
+
+    dist.init_process_group(backend="gloo", rank=rank, world_size=world_size)
+
+    if rank < 4:
+        # ---- COLLECTOR on node_3, ranks 0-3, one GPU each ----
+        device = torch.device(f"cuda:{rank}")
+        src1 = 4 + 2 * rank        # each collector pairs with 2 specific producers
+        src2 = src1 + 1
+
+        buf1 = torch.zeros(7, 7)
+        buf2 = torch.zeros(7, 7)
+        dist.recv(tensor=buf1, src=src1)
+        dist.recv(tensor=buf2, src=src2)
+
+        a = buf1.to(device)
+        b = buf2.to(device)
+        result = a @ b
+        torch.cuda.synchronize(device)
+
+        print(f"[node_3] rank {rank} (GPU {rank}) result:")
+        print(result.cpu())
+
+    else:
+        # ---- PRODUCER on node_4, ranks 4-11 ----
+        local_gpu = rank - 4                    # 0..7
+        device = torch.device(f"cuda:{local_gpu}")
+
+        A = torch.rand(7, 9, device=device)
+        B = torch.rand(9, 7, device=device)
+        C = A @ B
+
+        dst = local_gpu // 2                    # routes to collector rank 0-3
+        dist.send(tensor=C.cpu(), dst=dst)
+        print(f"[node_4] rank {rank} (GPU {local_gpu}) sent to collector rank {dst}")
+
+    dist.destroy_process_group()
+
+if __name__ == "__main__":
+    main()
+
+```
+
+Mapping of rank/gpus: 
+
+| Producer rank (node_4) | GPU | Sends to collector rank |
+|---|---|---|
+| 4, 5 | 0, 1 | 0 |
+| 6, 7 | 2, 3 | 1 |
+| 8, 9 | 4, 5 | 2 |
+| 10, 11 | 6, 7 | 3 |
+
