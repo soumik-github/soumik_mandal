@@ -1,7 +1,5 @@
 
 
-# RL training setup - agentic framework, different stages, understanding the overall flow, open problems
-
 ## RL training setup for Agentic RAG
 
 Overall - DPO, vs PPO, vs GRPO.

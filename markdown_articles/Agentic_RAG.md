@@ -1,7 +1,5 @@
 
 
-# Agnetic RAG - agentic framework, different stages, open problems
-
 ## Agnetic-RAG
 
 The article  formulates Retrieval-Augmented Generation (RAG) as a
