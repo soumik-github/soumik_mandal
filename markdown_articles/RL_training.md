@@ -1,8 +1,4 @@
----
-title: RL training setup - Agnetic RAG 
-date: 2026-08-17
-author: soumik
----
+
 
 # RL training setup - agentic framework, different stages, understanding the overall flow, open problems
 
@@ -67,6 +63,24 @@ flowchart LR
     classDef srg fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
     classDef vamu fill:#dce7f3,stroke:#db2777,color:#831843,stroke-width:1px;
 </pre>
+
+
+The servers may be hosted via vLLM/sglang or extrenal API calls with fastAPI/Uvicorn wrapper which will listen to the requests during verl training. The sub-question can be generated using a hosted separate server. Same argument for retriever, and answer generator (RG). Deatils on these on a separate article.
+
+For verl training, we need servers where we may have multiple nodes with GPUs inside them. These nodes can be managed by SLURM(depends on platform). RAY clauster assignment for each component of verl can be done - SLURM clusters can be managed/assigned by RAY.
+Below are few ways to them : 
+
+SLURM basics - 
+
+
+RAY cluster assignment basics - 
+
+
+
+
+Once RAY clusters are assigned, we can mention them while spinning up verl RL code.
+
+
 
 
 

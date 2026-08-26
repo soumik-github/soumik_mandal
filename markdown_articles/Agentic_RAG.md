@@ -1,8 +1,4 @@
----
-title: Agnetic RAG - agentic framework, different stages, open problems
-date: 2026-08-17
-author: soumik
----
+
 
 # Agnetic RAG - agentic framework, different stages, open problems
 
