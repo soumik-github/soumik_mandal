@@ -1,7 +1,5 @@
 ---
 title: SLURM basics
-date: 2026-08-25
-author: soumik
 ---
 
 # SLURM basics
