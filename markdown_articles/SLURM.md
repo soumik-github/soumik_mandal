@@ -315,3 +315,7 @@ Mapping of rank/gpus:
 </tr>
 </table>
 
+Now we have a general recipe for communicating between nodes with multiple-gpus. We can pass arbitrary functions outputs from one node to another, message them and forward to another gpu (in prallel or sequence). Our function can be anything - arithmetic operation, complex API calls, gradient accumulation, back-prop which can only fit in multiple nodes, weather model update, complex RL set up, simulation of physical phenomena etc and many more.
+
+
+
