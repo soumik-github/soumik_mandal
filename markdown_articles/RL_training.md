@@ -70,13 +70,9 @@ The servers may be hosted via vLLM/sglang or extrenal API calls with fastAPI/Uvi
 For verl training, we need servers where we may have multiple nodes with GPUs inside them. These nodes can be managed by SLURM(depends on platform). RAY clauster assignment for each component of verl can be done - SLURM clusters can be managed/assigned by RAY.
 Below are few ways to them : 
 
-SLURM basics - 
+SLURM basics - [SLURM basics](https://soumik-github.github.io/soumik_mandal/html_articles/SLURM.html)
 
-
-RAY cluster assignment basics - 
-
-
-
+RAY cluster assignment basics - [RAY cluster/concepts basics](https://soumik-github.github.io/soumik_mandal/html_articles/RAY.html)
 
 Once RAY clusters are assigned, we can mention them while spinning up verl RL code.
 
