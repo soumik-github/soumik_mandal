@@ -2,8 +2,6 @@
 title: SLURM basics
 ---
 
-# SLURM basics
-
 ## Overview
 
 In this article we describe the basics of SLURM - what is it and how is this useful.
@@ -104,4 +102,89 @@ done
 
 ## Examples
 
-_Coming soon._
+### Problem 1: Matrix multiplication
+
+Let's say there are 3 nodes with 8 GPUs each - `node_3`/`node_4`/`node_5`. From `node_3` we want to access `node_4` and run a Python script that generates two random matrices ($7\times 9$ and $9\times 7$), multiplies them to get a $7\times 7$ matrix, and sends the result back to `node_3`. Since `node_4` has 8 GPUs, we get 8 such matrices back on `node_3`. Once we have these 8 matrices on `node_3`, we multiply them together sequentially on a single GPU there, and print the final answer.
+
+`matmul_demo.sbatch`:
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=matmul_demo
+#SBATCH --output=matmul_%j.log
+#SBATCH --time=00:10:00
+
+# ---- Component 0: node_3 = collector (1 task, 1 GPU) ----
+#SBATCH --nodelist=node_3
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=2
+
+#SBATCH hetjob
+
+# ---- Component 1: node_4 = producers (8 tasks, 8 GPUs) ----
+#SBATCH --nodelist=node_4
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=8
+#SBATCH --gres=gpu:8
+#SBATCH --cpus-per-task=2
+
+source ~/venv/bin/activate     # adjust to your env
+export MASTER_PORT=29500
+
+# launch ONE combined 9-rank distributed world across both components
+srun --het-group=0,1 python matmul_worker.py
+```
+
+`matmul_worker.py`:
+
+```python
+import os
+import torch
+import torch.distributed as dist
+
+def main():
+    rank = int(os.environ["SLURM_PROCID"])        # global rank: 0..8
+    world_size = int(os.environ["SLURM_NTASKS"])   # 1 + 8 = 9
+
+    os.environ.setdefault("MASTER_ADDR", "node_3")   # rank 0's hostname
+    os.environ.setdefault("MASTER_PORT", "29500")
+
+    dist.init_process_group(backend="gloo", rank=rank, world_size=world_size)
+
+    if rank == 0:
+        # ---- COLLECTOR on node_3 ----
+        collected = []
+        for src in range(1, world_size):
+            buf = torch.zeros(7, 7)
+            dist.recv(tensor=buf, src=src)
+            collected.append(buf)
+            print(f"[node_3] received matrix from rank {src}")
+
+        device = torch.device("cuda:0")   # node_3's 1 GPU
+        result = collected[0].to(device)
+        for m in collected[1:]:
+            result = result @ m.to(device)   # sequential 7x7 chain multiply
+
+        print("Final 7x7 result on node_3:")
+        print(result.cpu())
+
+    else:
+        # ---- PRODUCER on node_4 ----
+        local_gpu = rank - 1              # ranks 1-8 -> GPUs 0-7
+        device = torch.device(f"cuda:{local_gpu}")
+
+        A = torch.rand(7, 9, device=device)
+        B = torch.rand(9, 7, device=device)
+        C = A @ B                          # 7x9 @ 9x7 = 7x7
+
+        dist.send(tensor=C.cpu(), dst=0)   # send back to node_3
+        print(f"[node_4] rank {rank} (GPU {local_gpu}) sent its 7x7 matrix")
+
+    dist.destroy_process_group()
+
+if __name__ == "__main__":
+    main()
+```
