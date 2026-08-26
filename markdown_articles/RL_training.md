@@ -1,4 +1,6 @@
-
+---
+title: RL training setup - agents
+---
 
 ## RL training setup for Agentic RAG
 

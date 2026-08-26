@@ -1,4 +1,6 @@
-
+---
+title: Agnetic RAG - agentic framework, different stages, open problems
+---
 
 ## Agnetic-RAG
 
