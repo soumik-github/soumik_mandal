@@ -8,7 +8,7 @@ author_bio: |
   Welcome to my research space. I publish research articles in LLM, FM, NLP, Vision, Semantic Parsing, general AI/ML here.
   I am interested in perception, understanding, reasoning, action, reward, and learning of large scale systems.
 note_to_reader: |
-  These blogs are intended for less formal discussions, and are solely my view points. For any entity other than me using it for commercial purpose : this materials solely belongs to me and only me. No exception. My terms and conditions overrides everything. Nobody should copy my materials. 
+  These articles are intended for less formal discussions, and are solely my view points. For any entity other than me using it for commercial purpose : this materials solely belongs to me and only me. No exception. My terms and conditions overrides everything. Nobody should copy my materials. 
 
 # Ensure markdown files in markdown_articles/ are rendered as article pages.
 defaults:
