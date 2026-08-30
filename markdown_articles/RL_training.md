@@ -148,7 +148,7 @@ Eight such mini-batch updates complete the "gradient update" part of the step (`
 
 ### Phase 4 - Loop closure and checkpointing
 
-The updated actor weights are what get synced into the vLLM rollout engine at the start of the next training step (back to Phase 1b) - this is what makes the algorithm on-policy across steps. Every `trainer.save_freq` steps, actor (and critic) checkpoints are written to `$default_local_dir`. `trainer.total_epochs` means this whole Phase 1→4 cycle repeats across 5 full passes over `train.parquet`. But the rollout also can be made off-policy too where the actor is different than roll-out model in a sense that roll-out model is a delayed version of actor model.
+The updated actor weights are what get synced into the vLLM rollout engine at the start of the next training step (back to Phase 1b) - this is what makes the algorithm on-policy across steps. Every `trainer.save_freq` steps, actor (and critic) checkpoints are written to `$default_local_dir`. `trainer.total_epochs` means this whole Phase 1→4 cycle repeats across 5 full passes over training data. But the rollout also can be made off-policy too where the actor is different than roll-out model in a sense that roll-out model is a delayed version of actor model.
 
 There are different types of training data one can have for RL training. Once type of traininig is we can use a bigger model to score the traces or can have own reward model for scoring. Depending on application such as maths/code domain, if one has final answers, then one can use RLVR (verifiable reward) along with different other typesreward signal such as block code similarity, reading easeness of code, variable naming convention, edge case analysis, static/dynamic analysis etc.
 
