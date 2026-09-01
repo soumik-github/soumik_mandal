@@ -1,9 +1,10 @@
 ---
 title: 3d vision , speech multimodal
-date: 2026-02-22
 ---
 
 # 3d vision, speech, and language - multimodal
+
+Work in progress
 
 ## What is 3D Vision?
 
@@ -35,13 +36,11 @@ When combined, these create powerful systems:
 - **AR/VR Applications**: Spatial understanding with voice interaction
 
 **Challenges:**
-- High computational cost
-- Data synchronization across modalities
-- Real-time processing requirements
+- multi-modal models are difficult to train
 
-Realted maths : 
+Related maths : 
 
-linear algebra, stats, probability, dnn, transformers, data gather, model train, eval, deploy, quantize, 
+linear algebra, stats, probability, dnn, transformers, data gather, model train, eval, deploy, quantize 
 
 
 
