@@ -42,6 +42,7 @@ Related maths :
 
 linear algebra, stats, probability, dnn, transformers, data gather, model train, eval, deploy, quantize 
 
+More on this coming soon on 3d perception
 
 
 
