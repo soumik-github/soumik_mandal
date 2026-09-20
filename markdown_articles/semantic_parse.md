@@ -14,6 +14,8 @@ Prior to GPT, the dominant models were T5 and BART. However, these models were n
 
 Moving forward, GPT-style models were pre-trained on internet-scale data. But since this was general pre-training, the semantic-parsing benchmark numbers would be bad here. Such an LLM can, of course, be instruction fine-tuned on (query, SQL) datasets. The problem is that IFT suffers from catastrophic forgetting. To bypass this, one mixes logical reasoning data, NLU tasks, code generation and NL2SQL/NL2KG data into the training data, and performs IFT at different strengths for each of these components. As a result of this, at the end both semantic-parsing and non-semantic-parsing benchmarks give good results.
 
+While developing the methods, it is important to note that there are different aspects to consider while training a model: instilling the task-at-hand behavior (here, improving semantic parsing) vs. making sure all the previous general capabilities are intact (general logical reasoning, understanding, etc.) vs. negative/red-team behavior (the detrimental cases). Each of these comes with its own pros, cons and methods. Here, in this article, to make the discussion targeted, we focus on instilling the task-at-hand behavior only.
+
 ## Components of a query
 
 Let us see what the different components of a query are - **clauses**, **operators** and **operands**:
@@ -110,6 +112,13 @@ $$
 
 where $Q$ is the natural language question, $\mathrm{DB}$ the database/schema it is asked against, $Y$ the ground-truth answer, and each $(q_j, y_j)$ one synthesized sub-question with its sub-answer. The $m$ intermediate pairs are exactly the supervision that the trajectory $\tau$ of Stage 3 needs, and $y$ is the final answer they compose into - which can then be checked against $Y$.
 
-One way to get this is using MCTS. The overall idea is that we can use other LLMs to generate an MCTS tree, and while we are generating this tree we can prune or approve the branches in it.
+One way to get this is using MCTS. The overall idea is that we can use other LLMs to generate an MCTS tree, and while we are generating this tree we can prune or approve the branches in it. Overall, given a ground truth AST (abstarct syntax tree corres to ground truth query) or a set of them (applicable in permutation invariant case), we can take the NL instruction -> grow sql generation tree using MCTS using different strategy -> prune the MCTS by comparing against the ground-truth ASTs -> compute reward signal as we grow. 
 
-More details on the MCTS-based data synthesis are coming soon.
+Details on the MCTS-based data synthesis are coming soon. Its pretty simple to think and implement. The permutation invariant variation of the comparison also can be implemented.
+
+Once the RL/IFT is done with the reasoning/multi-hop traces in mind, one can employ pure RLVR to do more training on the multi-hop cases where only the final answer is present. GRPO can be used in thsi round of training. Generally to get the reward its a r(gt, preidction) formulation where r(.,.) is implemented by an LLM or foundation mdoel at hand. A high tempertature for sampling alongwith high number of roll-outs can be used for this round of training.
+
+Next we can focus on the issues one might encounter as we go for long-context training. Generally, the context length for a task is increased in a sequence, so that the LLM being trained learns the tasks slowly over increasing complexity. Hence all the RL training that happens gradually improves over complexity. But as the context length grows, the memory needed for training also starts increasing (almost) linearly over the sequence length. This leads to memory fragmentation, OOM errors, etc. There are different tricks to address the memory issues (reduce the batch size, use strided attention, offload some of the optimizer and other states to CPU memory, or use bigger/larger/more GPUs, etc.). To reduce the wall-time (not the algorithmic time) of the training, kernel fusion techniques can be employed. This basically says that, in order to make training easier for developers, compilers have taken a modular approach - but this eventually leads to a lot of back and forth between SRAM and HBM, which is time consuming. A simple, basic math trick (rewite the algorithm of matrix multiply+non-linearity) in flash attention solves this - this is applicable for both forward and backprop direction because the basic elements behind the algorithm modification is the same. One can employ this in inference too, but inference is not our focus here.
+
+Advanced topic : add formal verification tool, use compiler tools for generating reward signals during training.
+
